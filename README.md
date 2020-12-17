@@ -1,1 +1,2 @@
-# cd_robotica
+# Informe Cinemática Directa mediante Denavit-Hartenberg
+
