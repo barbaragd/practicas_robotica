@@ -99,17 +99,11 @@ if len(sys.argv) != nvar+1:
 p=[float(i) for i in sys.argv[1:nvar+1]]
 
 # Parámetros D-H:
-#        1  1'   2   2'   3      41      42  ef
-#d  = [   5, 2,   0, -2,   5,      0,      0,  0]
-#th = [p[0], 0,p[1],-90,p[2],90-p[3],90+p[3], 90]
-#a  = [   0, 0,   3,  0,   0,      1,      1,  1]
-#al = [ -90, 0,   0,-90,  90,      0,      0,  0]
-
-#        1  1'    2   2'   3      41      42  ef
-d  = [   5, 2,    0,  2,   5,      0,      0,  0]
-th = [p[0], 0,-p[1],-90,p[2],90-p[3],90+p[3], 90]
-a  = [   0, 0,    3,  0,   0,      1,      1,  1]
-al = [ -90, 0,    0, 90,  90,      0,      0,  0]
+#        1   1'    2   2'   3      41      42  ef
+d  = [   5,  2,    0,  2,   5,      0,      0,  0]
+th = [p[0],  0, p[1], 90,p[2],90-p[3],90+p[3], 90]
+a  = [   0,  0,    3,  0,   0,      1,      1,  1]
+al = [ -90,180,    0, 90,  90,      0,      0,  0]
 
 # Orígenes para cada articulación
 o00=[0,0,0,1]
@@ -127,12 +121,10 @@ T01=matriz_T(d[0],th[0],a[0],al[0])
 T11p=matriz_T(d[1],th[1],a[1],al[1])
 T1p2=matriz_T(d[2],th[2],a[2],al[2])
 T22p=matriz_T(d[3],th[3],a[3],al[3])
-
 T2p3=matriz_T(d[4],th[4],a[4],al[4])
 T341=matriz_T(d[5],th[5],a[5],al[5])
 T342=matriz_T(d[6],th[6],a[6],al[6])
 T3ef=matriz_T(d[7],th[7],a[7],al[7])
-
 
 T01p=np.dot(T01,T11p)
 T02=np.dot(T01p,T1p2)
@@ -140,7 +132,6 @@ T02p=np.dot(T02,T22p)
 T03=np.dot(T02p,T2p3)
 T041=np.dot(T03,T341)
 T042=np.dot(T03,T342)
-
 T0ef=np.dot(T03,T3ef)
 
 

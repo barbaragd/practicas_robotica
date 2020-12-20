@@ -11,6 +11,7 @@ from math import *
 import numpy as np
 import matplotlib.pyplot as plt
 import colorsys as cs
+import math
 
 # ******************************************************************************
 # Declaración de funciones
@@ -81,8 +82,7 @@ dist = float("inf")
 prev = 0.
 iteracion = 1
 
-pi = 3.14159265358979323
-radianes = pi/180
+radianes = math.pi/180
 
 lmax=[90*radianes,10,90*radianes,45*radianes]
 lmin=[-90*radianes,0,-90*radianes,-45*radianes]
