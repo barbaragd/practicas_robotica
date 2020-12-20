@@ -84,10 +84,10 @@ iteracion = 1
 
 radianes = math.pi/180
 
-lmax=[90*radianes,10,90*radianes,45*radianes]
-lmin=[-90*radianes,0,-90*radianes,-45*radianes]
+lmax=[90*radianes,10,90*radianes]
+lmin=[-90*radianes,0,-90*radianes]
 
-p =[1,0,1,1]
+p =[1,0,1]
 
 while (dist > EPSILON and abs(prev-dist) > EPSILON/100.):
   prev = dist
@@ -106,8 +106,9 @@ while (dist > EPSILON and abs(prev-dist) > EPSILON/100.):
 
     else :
       w = sum(th[:len(th)-i])
-      v = np.subtract(objetivo,O[i][-1])
-      a[len(th)-1-i] += np.dot([cos(w),sin(w)],v)
+      v = np.subtract(objetivo,O[i][len(th)])
+      d = [cos(w),sin(w)]
+      a[len(th)-1-i] += np.dot(d,v)
 
       if a[len(th)-1-i] < lmin[len(th)-1-i]: a[len(th)-1-i] = lmin[len(th)-1-i]
       elif a[len(th)-1-i] > lmax[len(th)-1-i]: a[len(th)-1-i] = lmax[len(th)-1-i]
