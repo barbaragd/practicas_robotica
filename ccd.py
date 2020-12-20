@@ -101,16 +101,16 @@ while (dist > EPSILON and abs(prev-dist) > EPSILON/100.):
       c2=atan2(v2[1],v2[0])
       th[len(th)-1-i] += c1 - c2
 
-      #if th[len(th)-1-i] < lmin[len(th)-1-i]: th[len(th)-1-i] = lmin[len(th)-1-i]
-      #elif th[len(th)-1-i] > lmax[len(th)-1-i]: th[len(th)-1-i] = lmax[len(th)-1-i]
+      if th[len(th)-1-i] < lmin[len(th)-1-i]: th[len(th)-1-i] = lmin[len(th)-1-i]
+      elif th[len(th)-1-i] > lmax[len(th)-1-i]: th[len(th)-1-i] = lmax[len(th)-1-i]
 
     else :
       w = sum(th[:len(th)-i])
       v = np.subtract(objetivo,O[i][-1])
       a[len(th)-1-i] += np.dot([cos(w),sin(w)],v)
 
-      #if a[len(th)-1-i] < lmin[len(th)-1-i]: a[len(th)-1-i] = lmin[len(th)-1-i]
-      #elif a[len(th)-1-i] > lmax[len(th)-1-i]: a[len(th)-1-i] = lmax[len(th)-1-i]
+      if a[len(th)-1-i] < lmin[len(th)-1-i]: a[len(th)-1-i] = lmin[len(th)-1-i]
+      elif a[len(th)-1-i] > lmax[len(th)-1-i]: a[len(th)-1-i] = lmax[len(th)-1-i]
     
     O[i+1] = cin_dir(th,a)
 
