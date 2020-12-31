@@ -84,34 +84,35 @@ iteracion = 1
 
 radianes = math.pi/180
 
-lmax=[90*radianes,10,90*radianes]
-lmin=[-90*radianes,0,-90*radianes]
+limiteMax=[90*radianes,10,90*radianes]
+limiteMin=[-90*radianes,0,-90*radianes]
 
-p =[1,0,1]
+tipoArticulacion =[1,0,1]
 
 while (dist > EPSILON and abs(prev-dist) > EPSILON/100.):
   prev = dist
   # Para cada combinación de articulaciones:
   for i in range(len(th)):
-    if p[len(th)-1-i] == 1:
+    puntoActual = len(th)-1-i
+    if tipoArticulacion[puntoActual] == 1:
       # cálculo de la cinemática inversa:
-      v1 = np.subtract(objetivo, O[i][len(th)-1-i])
-      v2 = np.subtract(O[i][len(th)],  O[i][len(th)-1-i])
-      c1=atan2(v1[1],v1[0])
-      c2=atan2(v2[1],v2[0])
-      th[len(th)-1-i] += c1 - c2
+      v1 = np.subtract(objetivo, O[i][puntoActual])
+      v2 = np.subtract(O[i][len(th)],  O[i][puntoActual])
+      a1  =atan2(v1[1],v1[0])
+      a2 = atan2(v2[1],v2[0])
+      th[puntoActual] += a1 - a2
 
-      if th[len(th)-1-i] < lmin[len(th)-1-i]: th[len(th)-1-i] = lmin[len(th)-1-i]
-      elif th[len(th)-1-i] > lmax[len(th)-1-i]: th[len(th)-1-i] = lmax[len(th)-1-i]
+      if th[puntoActual] < limiteMin[puntoActual]: th[puntoActual] = limiteMin[puntoActual]
+      elif th[puntoActual] > limiteMax[puntoActual]: th[puntoActual] = limiteMax[puntoActual]
 
     else :
       w = sum(th[:len(th)-i])
       v = np.subtract(objetivo,O[i][len(th)])
       d = [cos(w),sin(w)]
-      a[len(th)-1-i] += np.dot(d,v)
+      a[puntoActual] += np.dot(d,v)
 
-      if a[len(th)-1-i] < lmin[len(th)-1-i]: a[len(th)-1-i] = lmin[len(th)-1-i]
-      elif a[len(th)-1-i] > lmax[len(th)-1-i]: a[len(th)-1-i] = lmax[len(th)-1-i]
+      if a[puntoActual] < limiteMin[puntoActual]: a[puntoActual] = limiteMin[puntoActual]
+      elif a[puntoActual] > limiteMax[puntoActual]: a[puntoActual] = limiteMax[puntoActual]
     
     O[i+1] = cin_dir(th,a)
 
