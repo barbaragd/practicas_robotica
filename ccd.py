@@ -96,19 +96,21 @@ while (dist > EPSILON and abs(prev-dist) > EPSILON/100.):
     puntoActual = len(th)-1-i
     if tipoArticulacion[puntoActual] == 1:
       # cálculo de la cinemática inversa:
-      v1 = np.subtract(objetivo, O[i][puntoActual])
-      v2 = np.subtract(O[i][len(th)],  O[i][puntoActual])
-      a1  =atan2(v1[1],v1[0])
-      a2 = atan2(v2[1],v2[0])
-      th[puntoActual] += a1 - a2
+      pto_destino = np.subtract(objetivo, O[i][puntoActual])
+      pto_final   = np.subtract(O[i][len(th)],  O[i][puntoActual])
+      angulo_destino = atan2(pto_destino[1],pto_destino[0])
+      angulo_final = atan2(pto_final[1],pto_final[0])
+      th[puntoActual] += angulo_destino - angulo_final
 
       if th[puntoActual] < limiteMin[puntoActual]: th[puntoActual] = limiteMin[puntoActual]
       elif th[puntoActual] > limiteMax[puntoActual]: th[puntoActual] = limiteMax[puntoActual]
 
     else :
-      w = sum(th[:len(th)-i])
+      sumAngulos = 0
+      for j in range(puntoActual):
+        sumAngulos += th[j]
+      d = [cos(sumAngulos),sin(sumAngulos)]
       v = np.subtract(objetivo,O[i][len(th)])
-      d = [cos(w),sin(w)]
       a[puntoActual] += np.dot(d,v)
 
       if a[puntoActual] < limiteMin[puntoActual]: a[puntoActual] = limiteMin[puntoActual]
